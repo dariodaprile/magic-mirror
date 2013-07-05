@@ -11,4 +11,13 @@ class User
   property :password_hash, Text, required: true
   property :number_of_log, Integer
 
+
+  def password
+    @password ||= Password.new(password_hash)
+  end
+
+  def password=(new_password)
+    @password = Password.create(new_password)
+    self.password_hash = @password
+  end
 end

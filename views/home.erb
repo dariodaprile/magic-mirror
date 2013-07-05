@@ -1,1 +1,27 @@
-<h1>Magic Mirror on the wall, who is the fairest one of all?"</h1>
+<h1>"Magic Mirror on the wall, who is the fairest one of all?"</h1>
+<div> Login
+  <form action='/login' method="post">
+    <label for="email">Email</label>
+    <input type='text' name="email" id='email' />
+    <label for="password">Password</label>
+    <input type='password' name='password' id='password' />
+    <input type="submit" value="Log In"/>
+  </form>
+</div>
+<br>
+<div> Sign up
+<form action='/signup' method='post'>
+
+  <label for='first_name'>First Name</label>
+  <input id='first_name' type='text' name='first_name' value='<%= @new_user ? @new_user.first_name : "" %>'/>
+
+  <label for='email'>Email</label>
+  <input id='email' type='text' name='email' value='<%= @new_user ? @new_user.email : "" %>'/>
+
+  <label for='password'>Password</label>
+  <input id='password' type='password' name='password'/>
+
+  <input type="submit" value="Sign Up"/>
+
+</form>
+</div>
