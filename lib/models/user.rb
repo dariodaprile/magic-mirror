@@ -9,7 +9,7 @@ class User
   property :first_name, String, required: true
   property :email, String, required: true
   property :password_hash, Text, required: true
-  property :number_of_log, Integer
+  property :number_of_log, Integer, :default  => 0
 
 
   def password

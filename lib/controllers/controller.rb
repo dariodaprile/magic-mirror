@@ -20,6 +20,7 @@ class Controller < Sinatra::Base
     @new_user.first_name = params[:first_name]
     @new_user.email = params[:email]
     @new_user.password = params[:password]
+    # @new_user.number_of_log = params[:number_of_log] no need here
     @new_user.save!
   end
 
@@ -27,7 +28,9 @@ class Controller < Sinatra::Base
     @user = User.first(:email => params[:email])
     if @user.password == params[:password]
       session[:user_id] = @user.id
-      redirect "/user/#{:id}"
+      @user.number_of_log += 1
+      @user.save
+      redirect "/user/#{@user.id}"
     else
       redirect '/'
     end
@@ -37,3 +40,5 @@ class Controller < Sinatra::Base
     @user = User.get(id)
   end
 end
+
+# (params[:number_of_log].to_i + 1).to_s
