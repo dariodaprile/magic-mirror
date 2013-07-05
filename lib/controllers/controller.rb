@@ -38,7 +38,10 @@ class Controller < Sinatra::Base
 
   get '/user/:id' do |id|
     @user = User.get(id)
+    @logs = @user.number_of_log
+  erb :user
   end
+
 end
 
 # (params[:number_of_log].to_i + 1).to_s
