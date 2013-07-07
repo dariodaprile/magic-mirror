@@ -14,7 +14,7 @@ class User
   property :number_of_log, Integer, :default  => 0
 
   attr_reader :password
-  validates_length_of :password, :min => 3, :max =>20
+  validates_length_of :password, :min => 4, :max => 100
 
   def password
     @hashed_password ||= Password.new(password_hash)
