@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'rack-flash'
 require_relative '../models/dmconfig'
 
 class Controller < Sinatra::Base
@@ -43,7 +42,6 @@ class Controller < Sinatra::Base
       @user.save
       redirect "/user/#{@user.id}"
     else
-      flash.now[:login_fail] = "Incorrect email and password"
       redirect '/'
     end
   end
