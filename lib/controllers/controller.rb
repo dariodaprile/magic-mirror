@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'rack-flash'
 require_relative '../models/dmconfig'
 
 class Controller < Sinatra::Base
@@ -8,6 +9,12 @@ class Controller < Sinatra::Base
                                 :secret => 'hello my name is simon'
 
     set :root, Proc.new { File.join(File.dirname(__FILE__), "../../") }
+  end
+
+  helpers do
+    def signed_in?
+      session[:user_id]
+    end
   end
 
   get '/' do
@@ -20,18 +27,23 @@ class Controller < Sinatra::Base
     @new_user.first_name = params[:first_name]
     @new_user.email = params[:email]
     @new_user.password = params[:password]
-    # @new_user.number_of_log = params[:number_of_log] no need here
-    @new_user.save!
+    @new_user.save
+    if @new_user.saved?
+      erb :signup_confirm
+    else
+      erb :signup_fail
+    end
   end
 
   post '/login'do
     @user = User.first(:email => params[:email])
-    if @user.password == params[:password]
+    if @user && @user.password == params[:password]
       session[:user_id] = @user.id
       @user.number_of_log += 1
       @user.save
       redirect "/user/#{@user.id}"
     else
+      flash.now[:login_fail] = "Incorrect email and password"
       redirect '/'
     end
   end
@@ -42,6 +54,9 @@ class Controller < Sinatra::Base
   erb :user
   end
 
-end
+  get '/signout' do
+    session[:user_id]=nil
+  redirect '/'
+  end
 
-# (params[:number_of_log].to_i + 1).to_s
+end
