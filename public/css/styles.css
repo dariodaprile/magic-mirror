@@ -44,6 +44,11 @@ margin: auto;
 width: 600px;
 }
 
+.center {
+margin: auto;
+width: 600px;
+}
+
 input {
 width: 200px;
 border-radius: 15px;

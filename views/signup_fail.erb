@@ -1,12 +1,12 @@
+<div class= 'main'>
 <h1>"Please SignUp again"</h1>
-<a href="/">SignUp</a>
-
-<% if @new_user %>
-  <% if @new_user.errors %>
-    <ul>
-      <% @new_user.errors.each do |e| %>
-        <li><%= e.first %></li>
-      <% end %>
-    </ul>
-  <% end %>
+<% if @new_user.errors %>
+  <ul>
+    <% @new_user.errors.each do |error| %>
+      <li><%= error.first %></li>
+    <% end %>
+  </ul>
 <% end %>
+
+<a class='button' href="/">SignUp</a>
+</div>
